@@ -64,7 +64,7 @@ Big Walk VR can be installed straight on a Steam Frame (or Steam Deck / Linux PC
    ```
 4. Launch Big Walk from your library.
 
-Run the same command again to update. Add `-s -- --beta` for the beta channel, or `-s -- uninstall` to remove it.
+Run the same command again to update. Add `-s -- --beta` for the beta channel, `-s -- uninstall` to remove it, or `-s -- report` to show a short crash summary.
 
 Titanfall 2 VR isn't supported on the Frame yet: it needs Northstar and the EA app, which don't run reliably on SteamOS.
 

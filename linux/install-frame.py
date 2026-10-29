@@ -129,9 +129,22 @@ LAST STEP (one time): in Steam, open Big Walk > Properties > General > Launch Op
 Then launch Big Walk from your Frame's library. Re-run this script any time to update.
 """)
 
+def report(game):
+    """Prints a short crash summary that is easy to read off the headset."""
+    p = os.path.join(game, "BepInEx", "LogOutput.log")
+    if not os.path.isfile(p): die("No BepInEx log yet. Launch Big Walk once first.")
+    lines = open(p, errors="ignore").read().splitlines()
+    keys = ("[Error", "[Fatal", "Exception", "Failed", "failed")
+    errors = [l.strip()[:120] for l in lines if any(k in l for k in keys)]
+    print("\n===== CRASH SUMMARY =====")
+    print(f"log lines: {len(lines)}")
+    for l in (errors[:6] or ["no errors logged"]): print("  " + l)
+    print("last line:\n  " + (lines[-1].strip()[:120] if lines else "(empty)"))
+    print("=========================\n")
+
 def main():
     a = argparse.ArgumentParser(description=__doc__)
-    a.add_argument("action", nargs="?", default="install", choices=["install", "uninstall"])
+    a.add_argument("action", nargs="?", default="install", choices=["install", "uninstall", "report"])
     a.add_argument("--beta", action="store_true")
     a.add_argument("--game-dir")
     a = a.parse_args()
@@ -139,6 +152,8 @@ def main():
     if not game or not os.path.isfile(os.path.join(game, GAME_EXE)):
         die("Big Walk not found. Install it in Steam first, or pass --game-dir '/path/to/Big Walk'")
     log(f"Found Big Walk at {game}")
-    uninstall(game) if a.action == "uninstall" else install(game, a.beta)
+    if a.action == "report": report(game)
+    elif a.action == "uninstall": uninstall(game)
+    else: install(game, a.beta)
 
 if __name__ == "__main__": main()
