@@ -49,6 +49,25 @@ Your non-vr friends can install the mod and still play in flatscreen!
 Launching Big Walk normally through Steam stays non-VR while showing VR players' tracked movement. To play in VR, start SteamVR and use the installer's Launch in VR button.
 
 
+## Steam Frame / SteamOS / Linux (no Wine needed)
+
+Big Walk VR can be installed straight on a Steam Frame (or Steam Deck / Linux PC) with a native script.
+
+1. Install **Big Walk** from Steam on the headset and launch it once, then close it.
+2. Open a terminal (Desktop Mode -> Konsole) and run:
+   ```
+   curl -sSL https://raw.githubusercontent.com/mrcoconut0101/CircuitLordVRModInstaller-on-frame/main/linux/install-frame.sh | sh
+   ```
+3. In Steam: **Big Walk -> Properties -> Launch Options**, paste:
+   ```
+   WINEDLLOVERRIDES="winhttp=n,b" %command%
+   ```
+4. Launch Big Walk from your library.
+
+Run the same command again to update. Add `-s -- --beta` for the beta channel, or `-s -- uninstall` to remove it.
+
+Titanfall 2 VR isn't supported on the Frame yet: it needs Northstar and the EA app, which don't run reliably on SteamOS.
+
 ## Building from source
 
 Needs the .NET Framework 4.8 SDK.
